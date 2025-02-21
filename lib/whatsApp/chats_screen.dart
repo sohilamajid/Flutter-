@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_revision_1/const.dart';
-import 'package:flutter_revision_1/json_files/chats_json.dart';
 import 'package:flutter_revision_1/whatsApp/widgets/custom_chats.dart';
+import 'json_files/chats_json.dart';
 import 'models/chat_model.dart';
 
 class ChatsScreen extends StatelessWidget {

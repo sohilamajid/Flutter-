@@ -23,7 +23,7 @@ List<Map<String,dynamic>> messengerJson = [
     "name": "Dema",
     "image": avatarImage,
     "message": "Yes",
-    "icon": "received"
+    "icon": "read"
   },
   {
     "name": "Ash",
@@ -47,7 +47,7 @@ List<Map<String,dynamic>> messengerJson = [
     "name": "Shahad",
     "image": avatarImage,
     "message": "Hello",
-    "icon": "read"
+    "icon": "unread"
   },
   {
     "name": "Salma",

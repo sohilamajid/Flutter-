@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_revision_1/whatsApp/chats_screen.dart';
-
 import 'messenger/messenger_screen.dart';
 
 

@@ -13,6 +13,13 @@ class MessengerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildAppBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_fill),label: "Chats"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2),label: "People"),
+
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -26,12 +33,14 @@ class MessengerScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: apiList.length,
-                  separatorBuilder: (context,index) => SizedBox(height: 10,),
+                  separatorBuilder: (context,index) => SizedBox(
+                    height: 10,),
                   itemBuilder: (context, index) =>
                     _buildChatItem(
                         name: apiList[index].name??"",
                         image: apiList[index].image??"",
                         message: apiList[index].message??"",
+                        icon: apiList[index].icon!,
                     ),
               ),
             ],
@@ -45,11 +54,13 @@ class MessengerScreen extends StatelessWidget {
 
 
 
+
+
   Widget _buildChatItem({
     required String name ,
     required String image ,
     required String message ,
-    //required IconType icon ,
+    required IconType icon ,
   }) {
     return Row(
             children: [
@@ -72,11 +83,25 @@ class MessengerScreen extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Icon(
-                CupertinoIcons.check_mark_circled,
-                color: Colors.grey,),
+              Container(
+                  width: 14,
+                  height: 14,
+                  child: _iconTypeBuilder(icon)),
             ],
           );
+  }
+
+  Widget _iconTypeBuilder(IconType icon) {
+    if(icon == IconType.CHECK_ICON){
+      return Icon(
+        CupertinoIcons.check_mark_circled,
+        size: 16,
+        color: Colors.grey,);
+    }else if (icon == IconType.CIRCLE_AVATAR){
+      return CircleAvatar(radius: 6,);
+    }else {
+      return CircleAvatar(radius:8,backgroundImage: NetworkImage(avatarImage),);
+    }
   }
 
   Widget _searchBuilder() {

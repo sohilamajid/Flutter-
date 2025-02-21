@@ -1,0 +1,2 @@
+const String avatarImage = "https://w7.pngwing.com/pngs/915/511/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon-thumbnail.png";
+const String avatarImage2 = "https://w7.pngwing.com/pngs/193/660/png-transparent-computer-icons-woman-avatar-avatar-girl-thumbnail.png";

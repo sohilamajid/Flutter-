@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'bmi/bmi_screen.dart';
+import 'ecommerce/onboarding/onboarding_screen.dart';
+import 'ecommerce/splash/splash_screen.dart';
 import 'messenger/messenger_screen.dart';
 
 
@@ -11,9 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MessengerScreen(),
+      home: SplashScreen(),
     );
   }
 }

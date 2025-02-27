@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
     Future.delayed(Duration(seconds: 4)).then((value) =>
-      Get.offAll(OnBoardingScreen())
+      Get.offAll(OnBoardingScreen()),
       // Navigator.pushAndRemoveUntil(
       //   context,
       //   MaterialPageRoute(builder: (context) => OnBoardingScreen()),

@@ -1,5 +1,9 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_revision_1/ecommerce/auth/auth_screen.dart';
+import 'package:get/get.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -41,10 +45,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onTap: (){
                   _onChangeOnBoarding();
                 },
-                child: Container(
-                    height: 90,
-                    width: 90,
-                    child: Image.asset("assets/images/skip1.jpg",fit: BoxFit.fill,)),
+                child: CircularPercentIndicator(
+                  radius: 60.0,
+                  lineWidth: 5.0,
+                  animation: true,
+                  percent: index==0? .3 :index==1? .6 :1,
+                  center: Icon(CupertinoIcons.arrow_right_circle_fill,color: Colors.green,size: 80,),
+                  progressColor: Colors.green,
+                ),
               ),
 
             ],
@@ -55,13 +63,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   void _onChangeOnBoarding(){
-    index++;
-    title = titleList[index];
-    description = descList[index];
-    image = "assets/images/boarding${index+1}.jpg";
-    setState(() {
+    if(index<2){
+      index++;
+      title = titleList[index];
+      description = descList[index];
+      image = "assets/images/boarding${index+1}.jpg";
+      setState(() {
 
-    });
+      });
+    }else{
+      Get.to(const AuthScreen(),
+          curve: Curves.easeOutBack,duration: Duration(seconds: 1));
+    }
   }
 }
 List titleList = [

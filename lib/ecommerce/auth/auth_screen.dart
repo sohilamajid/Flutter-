@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_revision_1/ecommerce/login/login_screen.dart';
+import 'package:flutter_revision_1/ecommerce/sign_up/sign_up_screen.dart';
 import 'package:get/get.dart';
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -72,12 +74,22 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.green,
                           textColor: Colors.white,
                           width: width,
+                          onTap: (){
+                            Get.to(
+                              LoginScreen(),
+                              curve: Curves.bounceInOut,
+                              duration: Duration(seconds: 1),
+                            );
+                        }
                       ),
                       SizedBox(height: 20,),
                       _button(text: "Create an account",
                           color: Colors.white,
                           textColor: Colors.black,
                           width: width,
+                        onTap: (){
+                          Get.to(SignUpScreen());
+                        }
                       ),
                     ],
                   ),
@@ -95,19 +107,23 @@ class _AuthScreenState extends State<AuthScreen> {
     required Color textColor,
     required Color color,
     required double width,
+    void Function()? onTap
 }) {
-    return Container(
-                  height: 60,
-                  width: width * .9,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(15),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+                    height: 60,
+                    width: width * .9,
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(child: Text(text,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: textColor,
+                    ),)),
                   ),
-                  child: Center(child: Text(text,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: textColor,
-                  ),)),
-                );
+    );
   }
 }

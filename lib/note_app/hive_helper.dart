@@ -12,9 +12,10 @@ class HiveHelper {
     await myBox.put(notesBoxKey, notesList);
   }
 
-  static void getNotes(){
+  static Future<void> getNotes()async {
     if(myBox.isNotEmpty){
-      notesList = myBox.get(notesBoxKey);
+      await Future.delayed(Duration(seconds: 3))
+          .then((value) => notesList = myBox.get(notesBoxKey));
     }
   }
 

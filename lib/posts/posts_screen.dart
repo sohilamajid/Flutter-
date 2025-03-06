@@ -16,7 +16,7 @@ class _PostsScreenState extends State<PostsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.blue.withOpacity(.5),),
+      appBar: AppBar(title: Text("API"),backgroundColor: Colors.blue.withOpacity(.5),),
       body: BlocBuilder<PostsCubit, PostsState>(
         builder: (context, state) {
           final cubit = context.read<PostsCubit>();

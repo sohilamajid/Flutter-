@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_revision_1/ecommerce/login/cubit/login_cubit.dart';
 import 'package:flutter_revision_1/ecommerce/sign_up/sign_up_screen.dart';
 import 'package:get/get.dart';
-
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _passwordController2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(right: 50 , left: 50 , top: 100 , bottom: 20),
+        padding: EdgeInsets.only(right: 50, left: 50, top: 100, bottom: 20),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -54,38 +55,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * .05,
                 ),
-                CustomTextField(height: height ,
+                CustomTextField(
+                  height: height,
                   text: "Email",
                   controller: _emailController,
                   validator: (value) {
-                    bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value ?? "");
-                    if (value!.isEmpty) {
-                      return "The Field is empty";
-                    }
-                    if (emailValid == false) {
-                      return "the email is not valid";
-                    }
-                     else if (value.length < 11) {
-                      return "The numbers is less than 11 digits ";
-                    }
+                    // bool emailValid = RegExp(
+                    //         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    //     .hasMatch(value ?? "");
+                    // if (value!.isEmpty) {
+                    //   return "The Field is empty";
+                    // }
+                    // if (emailValid == false) {
+                    //   return "the email is not valid";
+                    // } else if (value.length < 11) {
+                    //   return "The numbers is less than 11 digits ";
+                    // }
                     return null;
                   },
                 ),
                 SizedBox(
                   height: height * .01,
                 ),
-                CustomTextField(height: height,
+                CustomTextField(
+                    height: height,
                     text: "Password",
                     controller: _passwordController,
-                    isPassword: true),
-                SizedBox(
-                  height: height * .01,
-                ),
-                CustomTextField(height: height,
-                    text: "Confirm Password",
-                    controller: _passwordController2,
                     isPassword: true),
                 SizedBox(
                   height: height * .01,
@@ -99,30 +94,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * .04,
                 ),
-                InkWell(
-                  onTap: () {
-                    _formKey.currentState!.validate();
-                  },
-                  child: Material(
-                    borderRadius: BorderRadius.circular(16),
-                    elevation: 10,
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
+                BlocBuilder<LoginCubit, LoginState>(
+                  builder: (context, state) {
+                    if(state is LoginLoadingState){
+                      return Center(child: CircularProgressIndicator(),);
+                    }
+                    return InkWell(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<LoginCubit>().login(
+                              email: _emailController.text,
+                              password: _passwordController.text);
+                        }
+                      },
+                      child: Material(
                         borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
+                        elevation: 10,
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: height * .02,
@@ -131,15 +137,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Don't have account?"),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Get.to(SignUpScreen());
                       },
-                      child: Text("Sign up",style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),),
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),
